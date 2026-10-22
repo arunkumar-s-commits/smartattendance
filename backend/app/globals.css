@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════
+   CLEAN HUMAN-DESIGNED THEME (ACADEMIC / ERP PORTAL)
+   Clean, trustworthy, light slate & crisp white institutional UI
+═══════════════════════════════════════════════════════════════ */
+:root {
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --primary-border: #bfdbfe;
+
+  --teacher-primary: #059669;
+  --teacher-hover: #047857;
+  --teacher-light: #ecfdf5;
+  --teacher-border: #a7f3d0;
+
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-muted: #f1f5f9;
+
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-sub: #64748b;
+  --text-light: #94a3b8;
+
+  --border: #e2e8f0;
+  --border-focus: #059669;
+
+  --success: #16a34a;
+  --success-bg: #dcfce7;
+  --success-text: #15803d;
+
+  --danger: #dc2626;
+  --danger-bg: #fee2e2;
+  --danger-text: #b91c1c;
+
+  --warning: #d97706;
+  --warning-bg: #fef3c7;
+  --warning-text: #b45309;
+
+  --info: #0284c7;
+  --info-bg: #e0f2fe;
+  --info-text: #0369a1;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.teacher-bg {
+  min-height: 100vh;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 32px;
+  max-width: 100%;
+  overflow-x: hidden;
+  color: #0f172a;
+}
+
+/* Sidebar */
+.teacher-sidebar {
+  width: 250px;
+  min-height: 100vh;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.teacher-sidebar-logo {
+  padding: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.teacher-sidebar-nav {
+  padding: 16px 12px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.teacher-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #475569;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.15s;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+}
+
+.teacher-nav-item:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.teacher-nav-item.active {
+  background: #ecfdf5;
+  color: #047857;
+  font-weight: 600;
+}
+
+/* Cards & Stats */
+.card, .glass-card, .teacher-stat-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.stat-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-size: 30px;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+}
+
+.stat-sub {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.5px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-teacher-primary, .btn-primary {
+  background: #059669;
+  color: #ffffff;
+}
+.btn-teacher-primary:hover:not(:disabled), .btn-primary:hover:not(:disabled) {
+  background: #047857;
+}
+
+.btn-secondary, .btn-glass {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+.btn-secondary:hover:not(:disabled), .btn-glass:hover:not(:disabled) {
+  background: #f8fafc;
+  border-color: #94a3b8;
+  color: #0f172a;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+}
+
+.btn-lg {
+  padding: 12px 24px;
+  font-size: 15px;
+  border-radius: 8px;
+}
+
+/* Forms */
+.form-group, .dark-form-group {
+  margin-bottom: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label, .dark-form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.form-input, .dark-form-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-input:focus, .dark-form-input:focus, .teacher-dark-input:focus {
+  border-color: #059669;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+.dark-form-select, .form-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  background-color: #ffffff;
+}
+
+/* Tables */
+.table-container {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+th {
+  background: #f8fafc;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 12px 18px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  font-size: 14px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: #f8fafc;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-success { background: #dcfce7; color: #15803d; }
+.badge-danger { background: #fee2e2; color: #b91c1c; }
+.badge-warning { background: #fef3c7; color: #b45309; }
+.badge-info { background: #dbeafe; color: #1e40af; }
+.badge-gray { background: #f1f5f9; color: #475569; }
+
+/* Alerts */
+.alert {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-danger { background: #fee2e2; border: 1px solid #fecaca; color: #b91c1c; }
+.alert-success { background: #dcfce7; border: 1px solid #bbf7d0; color: #15803d; }
+.alert-warning { background: #fef3c7; border: 1px solid #fde68a; color: #b45309; }
+.alert-info { background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; }
+
+.teacher-auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+  padding: 24px;
+}
+
+.teacher-auth-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  margin-bottom: 24px;
+}
+.back-link:hover { color: #0f172a; }
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2.5px solid #e2e8f0;
+  border-top-color: #059669;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin { animation: spin 1s linear infinite; }

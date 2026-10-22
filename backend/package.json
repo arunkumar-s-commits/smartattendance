@@ -1,0 +1,43 @@
+{
+  "name": "smart-attendance-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Teacher Backend Portal & API Server for Smart Attendance System (Optimized for Render)",
+  "scripts": {
+    "dev": "next dev -p 5000",
+    "build": "next build",
+    "start": "next start -p 5000",
+    "lint": "next lint",
+    "seed": "tsx scripts/seed.ts"
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "^18",
+    "react-dom": "^18",
+    "mongoose": "^8.5.1",
+    "bcryptjs": "^2.4.3",
+    "jose": "^5.6.3",
+    "qrcode.react": "^3.1.0",
+    "recharts": "^2.12.7",
+    "lucide-react": "^0.400.0",
+    "uuid": "^10.0.0",
+    "date-fns": "^3.6.0",
+    "jspdf": "^2.5.1",
+    "jspdf-autotable": "^3.8.2",
+    "face-api.js": "^0.22.2"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/uuid": "^10.0.0",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "tsx": "^4.16.2"
+  }
+}

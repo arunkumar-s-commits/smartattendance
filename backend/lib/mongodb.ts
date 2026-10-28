@@ -30,10 +30,17 @@ async function connectDB(): Promise<typeof mongoose> {
     cached.promise = mongoose
       .connect(MONGODB_URI, {
         bufferCommands: false,
+        serverSelectionTimeoutMS: 10000, // fail fast instead of hanging forever
+        socketTimeoutMS: 45000,
+        connectTimeoutMS: 10000,
       })
       .then((mongooseInstance) => {
         console.log('✅ MongoDB connected');
         return mongooseInstance;
+      })
+      .catch((err) => {
+        cached.promise = null; // reset so next request can retry
+        throw err;
       });
   }
 

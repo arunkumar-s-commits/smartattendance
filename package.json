@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "npm run dev --prefix frontend",
     "dev:frontend": "npm run dev --prefix frontend",
     "dev:backend": "npm run dev --prefix backend",
-    "build": "next build",
+    "build": "npm run build --prefix frontend",
     "build:frontend": "npm run build --prefix frontend",
     "build:backend": "npm run build --prefix backend",
-    "start": "next start",
-    "lint": "next lint",
+    "start": "npm run start --prefix frontend",
+    "lint": "npm run lint --prefix frontend",
     "seed": "tsx scripts/seed.ts",
     "seed:backend": "npm run seed --prefix backend"
   },

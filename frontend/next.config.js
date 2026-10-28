@@ -1,5 +1,11 @@
 /** @type {import('next').NextConfig} */
-const backendUrl = process.env.BACKEND_API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+// IMPORTANT: BACKEND_API_URL is read at BUILD time by Next.js rewrites.
+// Set this in your Vercel dashboard → Settings → Environment Variables.
+// Fallback points to the production Render backend so the site works even without the env var.
+const backendUrl =
+  process.env.BACKEND_API_URL ||
+  process.env.NEXT_PUBLIC_API_URL ||
+  'https://smart-attendance-backend.onrender.com';
 
 const nextConfig = {
   reactStrictMode: false,

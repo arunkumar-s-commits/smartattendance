@@ -42,7 +42,7 @@ const features = [
 
 export default function LandingPage() {
   const teacherBackendUrl =
-    process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000/teacher/login';
+    process.env.NEXT_PUBLIC_BACKEND_URL || 'https://smart-attendance-backend.onrender.com/teacher/login';
 
   return (
     <div className="landing-bg">

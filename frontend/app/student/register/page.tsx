@@ -73,13 +73,30 @@ export default function StudentRegisterPage() {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: 'user' },
       });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
-      }
       setStreamRef(stream);
       setCameraActive(true);
-    } catch {
+
+      // Wait for React to render the <video> element, then attach the stream
+      const attachStream = (retries = 10) => {
+        if (videoRef.current) {
+          const video = videoRef.current;
+          video.srcObject = stream;
+          video.onloadedmetadata = () => {
+            video.play().catch(() => {
+              // autoplay blocked — muted + playsInline should handle this
+            });
+          };
+          // Fallback: if loadedmetadata already fired
+          if (video.readyState >= 2) {
+            video.play().catch(() => {});
+          }
+        } else if (retries > 0) {
+          setTimeout(() => attachStream(retries - 1), 50);
+        }
+      };
+      attachStream();
+    } catch (err) {
+      console.error('Camera error:', err);
       setFaceError('Could not access camera. Please allow camera permissions or upload a photo.');
     }
   };

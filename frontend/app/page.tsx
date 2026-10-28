@@ -41,8 +41,8 @@ const features = [
 ];
 
 export default function LandingPage() {
-  const teacherBackendUrl =
-    process.env.NEXT_PUBLIC_BACKEND_URL || 'https://smart-attendance-backend.onrender.com/teacher/login';
+  // Teacher portal goes through /teacher-portal wake-up page (handles Render cold-start gracefully)
+  const teacherPortalPath = '/teacher-portal';
 
   return (
     <div className="landing-bg">
@@ -72,10 +72,8 @@ export default function LandingPage() {
             <span style={{ fontSize: 12, color: '#15803d', fontWeight: 600 }}>System Active</span>
           </div>
 
-          <a
-            href={teacherBackendUrl}
-            target="_blank"
-            rel="noreferrer"
+          <Link
+            href={teacherPortalPath}
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -91,7 +89,7 @@ export default function LandingPage() {
             }}
           >
             Faculty Portal <ExternalLink size={13} />
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -187,14 +185,14 @@ export default function LandingPage() {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 'auto' }}>
-              <a
-                href={teacherBackendUrl}
+              <Link
+                href={teacherPortalPath}
                 className="portal-btn portal-btn-teacher"
                 id="teacher-login-btn"
                 style={{ position: 'relative', zIndex: 5 }}
               >
                 Access Teacher Portal <ArrowRight size={16} />
-              </a>
+              </Link>
 
               <div className="portal-card-note">
                 Hosted on Render Backend • Faculty &amp; Admin login

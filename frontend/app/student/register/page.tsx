@@ -36,6 +36,7 @@ export default function StudentRegisterPage() {
   const [mobile, setMobile] = useState('');
   const [department, setDepartment] = useState('');
   const [loading, setLoading] = useState(false);
+  const [loadingMsg, setLoadingMsg] = useState('Creating Account...');
   const [error, setError] = useState('');
   const [consent, setConsent] = useState(false);
 
@@ -174,20 +175,52 @@ export default function StudentRegisterPage() {
 
     setError('');
     setLoading(true);
+    setLoadingMsg('Creating Account...');
+    // Show escalating messages so user knows server is waking up
+    const t1 = setTimeout(() => setLoadingMsg('Connecting to server...'), 5000);
+    const t2 = setTimeout(() => setLoadingMsg('Server is waking up, please wait...'), 15000);
+    const t3 = setTimeout(() => setLoadingMsg('Almost there... (Render cold-start ~30s)'), 28000);
+    const clearTimers = () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); };
+
+    // Compress photo to reduce payload size (base64 can be very large)
+    const compressPhoto = (dataUrl: string, quality = 0.6): Promise<string> => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const MAX = 480;
+          const ratio = Math.min(MAX / img.width, MAX / img.height, 1);
+          canvas.width = img.width * ratio;
+          canvas.height = img.height * ratio;
+          canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.src = dataUrl;
+      });
+    };
 
     try {
+      const compressedPhoto = await compressPhoto(photoDataUrl);
+
+      // 60-second timeout — Render free tier can take 15-30s to cold-start
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 60000);
+
       const res = await fetch('/api/student/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           name,
           email,
           mobile,
           department,
-          photo: photoDataUrl,
+          photo: compressedPhoto,
           faceEmbedding,
         }),
       });
+      clearTimeout(timeoutId);
+      clearTimers();
 
       const data = await res.json();
       if (!res.ok) {
@@ -196,10 +229,16 @@ export default function StudentRegisterPage() {
       }
 
       setStep('done');
-    } catch {
-      setError('Network error. Please try again.');
+    } catch (err: unknown) {
+      clearTimers();
+      if (err instanceof Error && err.name === 'AbortError') {
+        setError('⏱ Server took too long to respond. The backend is waking up — please wait 30 seconds and try again.');
+      } else {
+        setError('Network error. Please check your connection and try again.');
+      }
     } finally {
       setLoading(false);
+      setLoadingMsg('Creating Account...');
     }
   };
 
@@ -479,7 +518,7 @@ export default function StudentRegisterPage() {
                 id="register-btn"
               >
                 {loading ? <span className="spinner" style={{ borderTopColor: 'white' }} /> : null}
-                {loading ? 'Creating Account...' : 'Complete Registration'}
+                {loading ? loadingMsg : 'Complete Registration'}
               </button>
 
               {faceStatus !== 'found' && (

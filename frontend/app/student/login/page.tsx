@@ -18,16 +18,26 @@ export default function StudentLoginPage() {
     setError('');
     setLoading(true);
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000);
+
       const res = await fetch('/api/auth/student', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({ email, password }),
       });
+      clearTimeout(timeoutId);
+
       const data = await res.json();
       if (!res.ok) { setError(data.error || 'Login failed. Please check your credentials.'); return; }
       router.push('/student/dashboard');
-    } catch {
-      setError('Network connection error. Please verify the backend is running.');
+    } catch (err: unknown) {
+      if (err instanceof Error && err.name === 'AbortError') {
+        setError('Server is starting up. Please wait 30 seconds and try again.');
+      } else {
+        setError('Cannot reach the server. Make sure the backend is running on port 5000.');
+      }
     } finally {
       setLoading(false);
     }
